@@ -1,0 +1,46 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+        "version": "2.0.0",
+        "tasks": [
+            {
+                "label": "build",
+                "type": "shell",
+                "command": "make",
+                "args": [
+                    "-j8"
+                ] 
+            },
+            {
+                "label": "clean",
+                "type": "shell",
+                "command": "make",
+                "args": [
+                    "clean"
+                ] 
+            },
+            {
+                "type": "shell",
+                "label": "load",
+                "command": "openocd",
+                "args": [
+                    "-f",
+                    "C:/Toyo/OpenOCD/openocd20211118/share/openocd/scripts/interface/stlink.cfg",
+                    "-f",
+                    "C:/Toyo/OpenOCD/openocd20211118/share/openocd/scripts/target/stm32f1x.cfg",
+                    "-c",
+                    // "${workspaceRoot}/build/${workspaceFolderBasename}.elf verify reset exit"
+                    // "${workspaceRoot}/build/${workspaceFolderBasename}.elf reset exit"
+                    "program build/demo0.elf reset exit"
+                ],
+                "problemMatcher":[
+                    "$gcc"
+                ],
+                "group": "build"
+            }
+        ]
+}
+
+/*
+不使用快捷键而执行task的方法：按Ctrl + P，然后输入”task[空格]“，就会出现可用的任务列表
+*/
